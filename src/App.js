@@ -2,11 +2,13 @@ import React from 'react';
 
 import { API, graphqlOperation } from 'aws-amplify'
 // import uuid to create a unique client ID
-import uuid from 'uuid/v4'
+import uuid from 'uuid/dist/v4'
 
 import { listTalks as ListTalks } from './graphql/queries'
 // import the mutation
 import { createTalk as CreateTalk } from './graphql/mutations'
+
+import { withAuthenticator } from 'aws-amplify-react'
 
 const CLIENT_ID = uuid()
 
@@ -92,4 +94,4 @@ class App extends React.Component {
   }
 }
 
-export default App
+export default withAuthenticator(App, { includeGreetings: true })
