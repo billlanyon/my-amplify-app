@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { API, graphqlOperation } from 'aws-amplify'
+import { API, graphqlOperation, Auth } from 'aws-amplify'
 // import uuid to create a unique client ID
 import uuid from 'uuid/dist/v4'
 
@@ -21,6 +21,9 @@ class App extends React.Component {
   // execute the query in componentDidMount
   async componentDidMount() {
     try {
+      const user = await Auth.currentAuthenticatedUser()
+      console.log('user:', user)
+      console.log('user info:', user.signInUserSession.idToken.payload)
       const talkData = await API.graphql(graphqlOperation(ListTalks))
       console.log('talkData:', talkData)
       this.setState({
